@@ -1,7 +1,4 @@
-# Wish box Service
-
------
-
+# Profamers api Service
 
 ## Service Features
 
@@ -16,10 +13,10 @@
 
 -----
 
- 1. Nodejs 8
- 1. mongoDB
- 1. Express
- 1. Mongoose ODM
+ 1. Nodejs 10+
+ 1. Postgres
+ 1. apollo graphql
+ 1. sequelize ORM
  1. Docker
 
 
