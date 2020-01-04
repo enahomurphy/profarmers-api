@@ -1,0 +1,112 @@
+const Sequelize = require('sequelize');
+const bcrypt = require('bcryptjs');
+const { get, pick } = require('lodash');
+
+class User extends Sequelize.Model {
+  validPassword(password) {
+    if (!password || !this.password) {
+      return false;
+    }
+
+    return bcrypt.compareSync(password, this.password);
+  }
+
+  toJSON(include = []) {
+    return {
+      id: this.getDataValue('id').replace('-'),
+      fullName: `${get(this, 'firstName', '')} ${get(this, 'lsetName', '')}`,
+      email: this.email,
+      verified: this.verified,
+      profileImage: get(this, 'profileImage', ''),
+      occupation: get(this, 'occupation', ''),
+      personal: get(this, 'personal', ''),
+      ...pick(this, include),
+    };
+  }
+}
+
+module.exports = (sequelize, dataTypes) => {
+  User.init(
+    {
+      id: {
+        primaryKey: true,
+        allowNull: false,
+        type: dataTypes.UUID,
+        defaultValue: dataTypes.UUIDV4,
+      },
+      firstName: {
+        allowNull: true,
+        type: dataTypes.STRING,
+        field: 'first_name',
+      },
+      lastName: {
+        allowNull: true,
+        type: dataTypes.STRING,
+        field: 'last_name',
+      },
+      email: {
+        allowNull: false,
+        unique: true,
+        type: dataTypes.STRING,
+        validate: {
+          min: 3,
+        },
+      },
+      phone: {
+        allowNull: true,
+        unique: true,
+        type: dataTypes.STRING,
+      },
+      password: {
+        allowNull: false,
+        type: dataTypes.STRING,
+        validate: {
+          min: 3,
+        },
+        set(val) {
+          this.setDataValue('password', bcrypt.hashSync(val, 8));
+        },
+      },
+      state: {
+        allowNull: true,
+        type: dataTypes.STRING,
+      },
+      city: {
+        allowNull: true,
+        type: dataTypes.STRING,
+      },
+      country: {
+        allowNull: true,
+        type: dataTypes.STRING,
+      },
+
+      occupation: {
+        allowNull: true,
+        type: dataTypes.STRING,
+      },
+      personal: {
+        allowNull: true,
+        type: dataTypes.TEXT,
+      },
+      verified: {
+        allowNull: true,
+        default: false,
+        type: dataTypes.BOOLEAN,
+      },
+      profileImage: {
+        allowNull: true,
+        type: dataTypes.STRING,
+        field: 'profile_image',
+      },
+    },
+    {
+      tableName: 'users',
+      sequelize,
+      timestamps: true,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+  );
+
+  return User;
+};

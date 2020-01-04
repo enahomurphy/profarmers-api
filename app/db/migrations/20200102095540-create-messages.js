@@ -1,0 +1,46 @@
+
+module.exports = {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('messages', {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+    },
+    conversation_id: {
+      type: Sequelize.UUID,
+      allowNull: false,
+    },
+    sender_id: {
+      type: Sequelize.UUID,
+      allowNull: false,
+    },
+    message_type: {
+      type: Sequelize.ENUM('text', 'image', 'video', 'audio'),
+      allowNull: false,
+      default: 'text',
+    },
+    message: {
+      type: Sequelize.TEXT,
+    },
+    attachment_thumb_url: {
+      type: Sequelize.STRING,
+    },
+    attachment_url: {
+      type: Sequelize.STRING,
+    },
+    is_read: {
+      type: Sequelize.BOOLEAN,
+    },
+    created_at: {
+      allowNull: false,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW,
+    },
+    updated_at: {
+      allowNull: false,
+      type: Sequelize.DATE,
+    },
+  }),
+  down: queryInterface => queryInterface.dropTable('messages'),
+};

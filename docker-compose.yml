@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  profarmers-service:
+    container_name: profarmers-api
+    image: node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    volumes: 
+      - .:/var/www
+      - /var/www/node_modules
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+    networks:
+      - profarmers_network
+    command: >
+      bash -c "npm run migrate && 
+            npm run dev" 
+
+  postgres:
+    container_name: profarmers-db
+    image: postgres:12.1-alpine
+    environment:
+      POSTGRES_PASSWORD: profarmers
+      POSTGRES_USER: root
+      POSTGRES_DB: profarmers
+    ports:
+      - "5432:5432"
+    networks:
+      - profarmers_network
+networks:
+  profarmers_network:
+    driver: bridge
