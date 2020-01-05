@@ -8,7 +8,7 @@ module.exports = {
     },
     salutation: {
       allowNull: true,
-      type: Sequelize.STRING(3),
+      type: Sequelize.STRING(4),
     },
     first_name: {
       allowNull: true,

@@ -2,7 +2,7 @@ const yup = require('yup');
 const pick = require('lodash/pick');
 
 const schema = yup.object().shape({
-  salutation: yup.string().max(3),
+  salutation: yup.string().max(4),
   fullName: yup.string().min(2).max(500),
   phone: yup.string().min(11).max(11),
   bio: yup.string(),

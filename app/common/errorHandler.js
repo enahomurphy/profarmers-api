@@ -35,10 +35,15 @@ const formatError = error => {
     );
   }
 
-  if (/sequelize/gmi.test(get(error, 'extensions.exception.name'))) {
+  const errors = get(error, 'extensions.exception.errors', []);
+  const isSequelizValidationErroor = (
+    /sequelize/gmi.test(get(error, 'extensions.exception.name')) && errors.length
+  );
+
+  if (isSequelizValidationErroor) {
     return formater(
       path,
-      formatSequelize(get(error, 'extensions.exception.errors', [])),
+      formatSequelize(errors),
     );
   }
 
