@@ -5,6 +5,7 @@ const { ApolloServer } = require('apollo-server-fastify');
 const { LoadSchema } = require('./app/common/graphql');
 const { formatError } = require('./app/common/errorHandler');
 const repo = require('./app/repo');
+const { JWT } = require('./app/common');
 
 const app = fastly();
 
@@ -18,6 +19,19 @@ LoadSchema()
         repo,
       }),
       formatError,
+      context: async ({ req }) => {
+        const tokenWithBearer = req.headers.authorization || '';
+        const token = tokenWithBearer.split(' ')[1];
+        let user = JWT.decode(token);
+
+        if (user) {
+          user = await repo.User.getById(user.id);
+        }
+
+        return {
+          user,
+        };
+      },
     });
 
     (async function init() {

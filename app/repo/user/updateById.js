@@ -1,7 +1,8 @@
+
 const { User } = require('../../db/models');
 
 const updateById = async (id, payload) => {
-  const user = await User.update(
+  const [, [user]] = await User.update(
     payload,
     {
       where: { id },
@@ -9,7 +10,7 @@ const updateById = async (id, payload) => {
     },
   );
 
-  return user;
+  return user.toJSON();
 };
 
 module.exports = updateById;

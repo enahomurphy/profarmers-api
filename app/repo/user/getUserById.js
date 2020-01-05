@@ -1,5 +1,13 @@
 const { User } = require('../../db/models');
 
-const getById = async id => User.findByPk(id);
+const getById = async id => {
+  const user = await User.findByPk(id);
+
+  if (!user) {
+    return null;
+  }
+
+  return user.toJSON();
+};
 
 module.exports = getById;

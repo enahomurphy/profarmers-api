@@ -13,13 +13,14 @@ class User extends Sequelize.Model {
 
   toJSON(include = []) {
     return {
-      id: this.getDataValue('id').replace('-'),
-      fullName: `${get(this, 'firstName', '')} ${get(this, 'lsetName', '')}`,
+      id: this.getDataValue('id').replace(/-/gmi, ''),
+      fullName: `${this.firstName || ''} ${this.lastName || ''}`.trim(),
       email: this.email,
       verified: this.verified,
       profileImage: get(this, 'profileImage', ''),
       occupation: get(this, 'occupation', ''),
       personal: get(this, 'personal', ''),
+      bio: get(this, 'bio', ''),
       ...pick(this, include),
     };
   }
@@ -34,6 +35,10 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.UUID,
         defaultValue: dataTypes.UUIDV4,
       },
+      salutation: {
+        allowNull: true,
+        type: dataTypes.STRING,
+      },
       firstName: {
         allowNull: true,
         type: dataTypes.STRING,
@@ -43,6 +48,10 @@ module.exports = (sequelize, dataTypes) => {
         allowNull: true,
         type: dataTypes.STRING,
         field: 'last_name',
+      },
+      bio: {
+        allowNull: true,
+        type: dataTypes.TEXT,
       },
       email: {
         allowNull: false,
@@ -79,7 +88,6 @@ module.exports = (sequelize, dataTypes) => {
         allowNull: true,
         type: dataTypes.STRING,
       },
-
       occupation: {
         allowNull: true,
         type: dataTypes.STRING,

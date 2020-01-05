@@ -12,3 +12,14 @@ module.exports.generateToken = paylaod => {
 
   return jwt.sign(paylaod, config.secret, options);
 };
+
+module.exports.decode = token => {
+  try {
+    if (token) {
+      return jwt.verify(token, config.secret);
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
+};

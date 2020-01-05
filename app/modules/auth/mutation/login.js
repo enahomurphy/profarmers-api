@@ -1,6 +1,6 @@
 const yup = require('yup');
 const bcrypt = require('bcryptjs');
-const { ApolloError } = require('apollo-server-fastify');
+const { UserInputError } = require('apollo-server-fastify');
 
 const { JWT } = require('../../../common');
 
@@ -21,7 +21,7 @@ const login = async (parent, args, { dataSources }) => {
   );
 
   if (!user) {
-    throw new ApolloError(invalidMessage, 400);
+    throw new UserInputError(invalidMessage);
   }
 
   const { email, id, password } = user;
@@ -32,7 +32,7 @@ const login = async (parent, args, { dataSources }) => {
   );
 
   if (!match) {
-    throw new ApolloError(invalidMessage, 400);
+    throw new UserInputError(invalidMessage);
   }
 
   return {
