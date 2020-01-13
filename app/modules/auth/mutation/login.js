@@ -1,27 +1,23 @@
 const yup = require('yup');
 const bcrypt = require('bcryptjs');
-const { UserInputError } = require('apollo-server-fastify');
 
 const { JWT } = require('../../../common');
 
-
-const schema = yup.object().shape({
+const validationSchema = yup.object().shape({
   email: yup.string().min(3).max(255).email(),
   password: yup.string().min(3).max(255),
 });
 
 const invalidMessage = 'invalid email or password';
 
-const login = async (parent, args, { dataSources }) => {
-  await schema.validate(args, { abortEarly: false });
-
-  const user = await dataSources.repo.User.getByEmail(
+const resolve = async (parent, args, { repo, reply }) => {
+  const user = await repo.User.getByEmail(
     args.email,
     ['password'],
   );
 
   if (!user) {
-    throw new UserInputError(invalidMessage);
+    throw new Error(invalidMessage);
   }
 
   const { email, id, password } = user;
@@ -32,12 +28,20 @@ const login = async (parent, args, { dataSources }) => {
   );
 
   if (!match) {
-    throw new UserInputError(invalidMessage);
+    throw new Error(invalidMessage);
   }
 
-  return {
-    token: JWT.generateToken({ email, id }),
-  };
+  const token = JWT.generateToken({ email, id });
+
+  reply.setCookie('jwt', token, {
+    path: '/',
+    signed: true,
+  });
+
+  return { token };
 };
 
-module.exports = login;
+module.exports = {
+  validationSchema,
+  resolve,
+};

@@ -2,19 +2,31 @@ const yup = require('yup');
 
 const { JWT } = require('../../../common');
 
-const schema = yup.object().shape({
+const validationSchema = yup.object().shape({
   email: yup.string().min(3).max(255).email(),
   password: yup.string().min(3).max(255),
 });
 
-const signup = async (_, args, { dataSources }) => {
-  await schema.validate(args, { abortEarly: false });
+const resolve = async (_, args, { repo, reply }) => {
+  const user = await repo.User.getByEmail(args.email);
 
-  const { email, id } = await dataSources.repo.User.add(args);
+  if (user) {
+    throw new Error('user with email already exist');
+  }
 
-  return {
-    token: JWT.generateToken({ email, id }),
-  };
+  const { email, id } = await repo.User.add(args);
+
+  const token = JWT.generateToken({ email, id });
+
+  reply.setCookie('jwt', token, {
+    path: '/',
+    signed: true,
+  });
+
+  return { token };
 };
 
-module.exports = signup;
+module.exports = {
+  validationSchema,
+  resolve,
+};

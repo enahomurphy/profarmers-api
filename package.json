@@ -39,17 +39,18 @@
     "sequelize-cli": "^5.5.1",
     "sinon": "^7.5.0"
   },
+  
   "dependencies": {
-    "@graphql-modules/core": "^0.7.14",
-    "apollo-server-fastify": "^2.9.15",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "fastify": "^2.11.0",
+    "fastify-cookie": "^3.4.1",
+    "fastify-gql": "^2.1.0",
     "graphql": "^14.5.8",
+    "graphql-middleware": "^4.0.2",
     "graphql-tools": "^4.0.6",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "mongoose": "^5.7.3",
-    "mongoose-delete": "^0.5.1",
     "nodemon": "^1.11.0",
     "pg": "^7.17.0",
     "pg-hstore": "^2.3.3",

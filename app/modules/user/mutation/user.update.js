@@ -1,7 +1,7 @@
 const yup = require('yup');
 const pick = require('lodash/pick');
 
-const schema = yup.object().shape({
+const validationSchema = yup.object().shape({
   salutation: yup.string().max(4),
   fullName: yup.string().min(2).max(500),
   phone: yup.string().min(11).max(11),
@@ -10,9 +10,7 @@ const schema = yup.object().shape({
   personal: yup.string(),
 });
 
-const update = async (_, args, { dataSources, user }) => {
-  await schema.validate(args, { abortEarly: false });
-
+const resolve = async (_, args, { repo, user }) => {
   const userObject = pick(
     args.payload,
     ['salutation', 'fullName', 'phone', 'bio', 'occupation', 'personal'],
@@ -24,7 +22,7 @@ const update = async (_, args, { dataSources, user }) => {
     userObject.lastName = lastName;
   }
 
-  const updatedUser = await dataSources.repo.User.updateById(
+  const updatedUser = await repo.User.updateById(
     user.id,
     userObject,
   );
@@ -32,4 +30,7 @@ const update = async (_, args, { dataSources, user }) => {
   return updatedUser;
 };
 
-module.exports = update;
+module.exports = {
+  validationSchema,
+  resolve,
+};
