@@ -1,31 +1,47 @@
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('user_connections', {
-    id: {
-      allowNull: false,
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-    },
-    user_id: {
-      type: Sequelize.UUID,
-      allowNull: false,
-    },
-    connector_id: {
-      type: Sequelize.UUID,
-      allowNull: false,
-    },
-    accepted: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-    },
-    created_at: {
-      allowNull: false,
-      type: Sequelize.DATE,
-    },
-    updated_at: {
-      allowNull: false,
-      type: Sequelize.DATE,
-    },
-  }),
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('user_connections', {
+      id: {
+        primaryKey: true,
+        allowNull: false,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+      },
+      sender_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+      },
+      receiver_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+      },
+      accepted: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+
+    return queryInterface.addConstraint('user_connections', ['sender_id', 'receiver_id'], {
+      type: 'unique',
+      name: 'user_connections_creator_reciever',
+    });
+  },
   down: queryInterface => queryInterface.dropTable('user_connections'),
 };

@@ -5,23 +5,24 @@ module.exports = {
     const conversations = [];
 
     const [connections] = await queryInterface.sequelize.query(
-      'SELECT connector_id, user_id from user_connections',
+      'SELECT sender_id, receiver_id from user_connections',
     );
 
-    const randomizeConversattion = connections.map(connection => {
+    const randomizeConversation = connections.map(connection => {
       const random = faker.helpers.shuffle([
-        connection.connector_id, connection.user_id,
+        connection.receiver_id, connection.sender_id,
       ]);
 
       return {
-        receiver_id: random[0],
-        creator_id: random[1],
+        creator_id: random[0],
+        receiver_id: random[1],
       };
     });
 
     let amount = 0;
+
     while (amount < connections.length) {
-      const connection = randomizeConversattion[amount];
+      const connection = randomizeConversation[amount];
       conversations.push({
         id: faker.random.uuid(),
         ...connection,

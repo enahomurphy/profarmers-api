@@ -11,18 +11,20 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.UUID,
         defaultValue: dataTypes.UUIDV4,
       },
-      title: {
-        type: dataTypes.STRING,
-        unique: true,
+      senderId: {
+        type: dataTypes.UUID,
         allowNull: false,
+        field: 'sender_id',
       },
-      description: {
-        type: dataTypes.STRING,
-      },
-      userId: {
-        type: dataTypes.STRING,
+      receiverId: {
+        type: dataTypes.UUID,
         allowNull: false,
-        field: 'user_id',
+        field: 'receiver_id',
+      },
+      accepted: {
+        type: dataTypes.BOOLEAN,
+        allowNull: false,
+        field: 'sender_id',
       },
     },
     {

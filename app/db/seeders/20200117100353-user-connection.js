@@ -8,9 +8,9 @@ module.exports = {
 
     const [users] = await queryInterface.sequelize.query('SELECT id from users');
     const userIds = users.map(({ id }) => id);
-    const mergedUsers = utils.connectionCreation(userIds).map(connection => ({
-      connector_id: connection.user_id,
-      user_id: connection.connector_id,
+    const mergedUsers = utils.connectionCreation(userIds).map(([receiverId, senderId]) => ({
+      receiver_id: receiverId,
+      sender_id: senderId,
     }));
 
     let amount = 0;

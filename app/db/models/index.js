@@ -9,7 +9,7 @@ const env = require('../../../config');
 const config = JSON.parse(get(env, 'db.options', '{}'));
 config.url = get(env, 'db.url');
 
-const sequelize = new Sequelize(config.url, config);
+const sequelize = new Sequelize(config.url, { ...config, logging: false });
 const db = {};
 
 fs

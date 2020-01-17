@@ -1,13 +1,12 @@
 module.exports = ids => {
   const connections = [];
-  for (let i = 0; i < ids.length; i += 1) {
-    for (let y = 0; y < ids.length - 1; y += 1) {
-      connections.push({
-        connector_id: ids[i],
-        user_id: ids[y + 1],
-      });
+  const arrLength = ids.length;
+  for (let i = 0; i < arrLength; i += 1) {
+    for (let y = 0; y < arrLength; y += 1) {
+      if ((y + i) < arrLength && (i !== (y + i))) {
+        connections.push([ids[i], ids[y + i]]);
+      }
     }
   }
-
   return connections;
 };

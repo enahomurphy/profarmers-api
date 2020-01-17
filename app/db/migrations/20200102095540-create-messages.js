@@ -10,10 +10,18 @@ module.exports = {
     conversation_id: {
       type: Sequelize.UUID,
       allowNull: false,
+      references: {
+        model: 'conversations',
+        key: 'id',
+      },
     },
     sender_id: {
       type: Sequelize.UUID,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     message_type: {
       type: Sequelize.ENUM('text', 'image', 'video', 'audio'),

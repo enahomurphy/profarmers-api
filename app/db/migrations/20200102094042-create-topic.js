@@ -16,10 +16,18 @@ module.exports = {
     creator_id: {
       type: Sequelize.UUID,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     forum_id: {
       type: Sequelize.UUID,
       allowNull: false,
+      references: {
+        model: 'forums',
+        key: 'id',
+      },
     },
     tags: {
       type: Sequelize.STRING,

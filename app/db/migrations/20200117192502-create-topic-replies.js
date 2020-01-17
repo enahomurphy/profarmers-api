@@ -12,14 +12,26 @@ module.exports = {
     },
     parent_id: {
       type: Sequelize.UUID,
+      references: {
+        model: 'topic_replies',
+        key: 'id',
+      },
     },
     user_id: {
       type: Sequelize.UUID,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     topic_id: {
       type: Sequelize.UUID,
       allowNull: false,
+      references: {
+        model: 'topics',
+        key: 'id',
+      },
     },
     created_at: {
       allowNull: false,

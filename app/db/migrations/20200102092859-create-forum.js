@@ -17,7 +17,10 @@ module.exports = {
     creator_id: {
       allowNull: false,
       type: Sequelize.UUID,
-
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     created_at: {
       allowNull: false,
