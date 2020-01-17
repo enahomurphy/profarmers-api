@@ -4,13 +4,14 @@ module.exports = {
     id: {
       allowNull: false,
       primaryKey: true,
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
     },
     title: {
       type: Sequelize.STRING,
     },
     body: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
     creator_id: {
       type: Sequelize.UUID,

@@ -10,17 +10,15 @@ services:
     env_file: .env
     volumes: 
       - .:/var/www
-      - /var/www/node_modules
     ports:
       - "4000:4000"
     depends_on:
       - postgres
-    
-      networks:
+    networks:
       - profarmers_network
     command: >
       bash -c "yarn migrate && 
-            npm run dev" 
+            yarn dev" 
 
   postgres:
     container_name: profarmers-db
