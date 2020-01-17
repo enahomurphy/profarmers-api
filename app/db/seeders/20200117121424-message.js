@@ -14,9 +14,9 @@ module.exports = {
 
     while (amount < conversations.length) {
       const count = faker.random.arrayElement([3, 4, 9, 3, 20, 50]);
+      const conversation = conversations[amount];
 
       for (let index = 0; index < count; index += 1) {
-        const conversation = conversations[amount];
         const sender = faker.random.arrayElement([
           conversation.receiver_id,
           conversation.creator_id,

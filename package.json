@@ -9,7 +9,9 @@
     "dev": "nodemon server.js",
     "lint": "eslint \"**/*.js\"",
     "migrate": "node_modules/.bin/sequelize db:migrate --url 'postgresql://root:profarmers@postgres/profarmers'",
-    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all --url 'postgresql://root:profarmers@postgres/profarmers'"
+    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all --url 'postgresql://root:profarmers@postgres/profarmers'",
+    "seed:undo": "node_modules/.bin/sequelize db:seed:undo:all --url 'postgresql://root:profarmers@postgres/profarmers'",
+    "seed": "node_modules/.bin/sequelize db:seed:all --url 'postgresql://root:profarmers@postgres/profarmers'"
   },
   "repository": {
     "type": "git",
