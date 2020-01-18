@@ -22,7 +22,7 @@ app.use(require('cors')());
 
 const port = process.env.PORT || 4000;
 
-const tp = {
+const middleware = {
   async Mutation(resolve, root, args, context, info) {
     const mutationField = info.schema.getMutationType().getFields()[info.fieldName];
     const mutationValidationSchema = mutationField.validationSchema;
@@ -45,7 +45,7 @@ LoadSchema()
     const gql = {
       schema: applyMiddleware(
         schema,
-        tp,
+        middleware,
       ),
       graphiql: 'playground',
 

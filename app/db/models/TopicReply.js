@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 
-class ReplyTopic extends Sequelize.Model {}
+class TopicReply extends Sequelize.Model {}
 
 module.exports = (sequelize, dataTypes) => {
-  ReplyTopic.init(
+  TopicReply.init(
     {
       id: {
         allowNull: false,
@@ -40,5 +40,5 @@ module.exports = (sequelize, dataTypes) => {
     },
   );
 
-  return ReplyTopic;
+  return TopicReply;
 };

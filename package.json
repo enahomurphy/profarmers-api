@@ -49,6 +49,7 @@
     "fastify-cookie": "^3.4.1",
     "fastify-gql": "^2.1.0",
     "graphql": "^14.5.8",
+    "graphql-fields": "^2.0.3",
     "graphql-middleware": "^4.0.2",
     "graphql-tools": "^4.0.6",
     "jsonwebtoken": "^8.5.1",

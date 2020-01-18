@@ -1,8 +1,13 @@
 const Sequelize = require('sequelize');
 
+
 class Topic extends Sequelize.Model {}
 
 module.exports = (sequelize, dataTypes) => {
+  const TopicReply = sequelize.import('./topicReply');
+  const Forum = sequelize.import('./Forum');
+  const User = sequelize.import('./User');
+
   Topic.init(
     {
       id: {
@@ -16,23 +21,32 @@ module.exports = (sequelize, dataTypes) => {
         unique: true,
         allowNull: false,
       },
-      description: {
+      body: {
         type: dataTypes.STRING,
       },
-      userId: {
+      creatorId: {
         type: dataTypes.UUID,
         allowNull: false,
-        field: 'user_id',
+        field: 'creator_id',
+      },
+      forumId: {
+        type: dataTypes.UUID,
+        allowNull: false,
+        field: 'forum_id',
       },
     },
     {
       timestamps: true,
       createdAt: 'created_at',
       updatedAt: 'updated_at',
-      tableName: 'forums',
+      tableName: 'topics',
       sequelize,
     },
   );
+
+  Topic.hasMany(TopicReply, { as: 'replies', foreignKey: 'topicId' });
+  Topic.belongsTo(Forum, { as: 'forum', foreignKey: 'forumId' });
+  Topic.belongsTo(User, { as: 'user', foreignKey: 'creatorId' });
 
   return Topic;
 };
