@@ -30,6 +30,13 @@ module.exports = (sequelize, dataTypes) => {
         allowNull: false,
         field: 'topic_id',
       },
+      updatedAt: {
+        type: dataTypes.DATE,
+        field: 'updated_at',
+        get() {
+          return new Date(this.getDataValue('updatedAt'));
+        },
+      },
     },
     {
       timestamps: true,

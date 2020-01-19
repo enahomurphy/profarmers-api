@@ -1,6 +1,7 @@
 const Topic = `
   extend type Query {
     trendingTopics: [Topic]
+    recentTopics: [Topic]
   }
 
   type Topic {
@@ -16,6 +17,7 @@ const Topic = `
     id: ID
     text: String
     user: User
+    updatedAt: DateTime
   }
 `;
 

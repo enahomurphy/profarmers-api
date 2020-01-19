@@ -5,10 +5,13 @@ const { merge } = require('lodash');
 const { join } = require('path');
 const { readdir } = require('fs');
 const { promisify } = require('util');
+const { DateTimeResolver } = require('graphql-scalars');
 
 const readdirPromise = promisify(readdir);
 
 const Query = `
+  scalar DateTime
+
   type Query {
     _empty: String
   }
@@ -46,7 +49,7 @@ const LoadSchema = async (options = {}) => {
 
   return makeExecutableSchema({
     typeDefs: gqlSchema.typeDefs,
-    resolvers: merge(Resolver, ...gqlSchema.resolvers),
+    resolvers: merge(Resolver, ...gqlSchema.resolvers, { DateTime: DateTimeResolver }),
     ...options,
   });
 };

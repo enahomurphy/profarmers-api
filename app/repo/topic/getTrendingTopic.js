@@ -24,6 +24,7 @@ const getTrending = async (associations = []) => {
     order: [
       [sequelize.literal('"replyCount"'), 'DESC'],
     ],
+    limit: 20,
   };
 
   associations.forEach(association => {
