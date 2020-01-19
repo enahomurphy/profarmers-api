@@ -6,6 +6,7 @@ const getRecent = async () => {
       'id',
       'creatorId',
       'forumId',
+      'title',
       [
         sequelize.literal(
           '(SELECT COUNT(*) FROM topic_replies WHERE topic_replies.topic_id = "Topic"."id")',
@@ -14,7 +15,11 @@ const getRecent = async () => {
       ],
     ],
     include: [
-      { association: 'replies', required: true },
+      {
+        association: 'replies',
+        required: true,
+        include: ['user'],
+      },
       {
         association: 'user',
       },
@@ -26,7 +31,7 @@ const getRecent = async () => {
 
   const topics = await Topic.findAll(query);
 
-  const raw = topics.map(topic => topic.get());
+  const raw = topics.map(topic => topic.get({ plain: true }));
   return raw;
 };
 

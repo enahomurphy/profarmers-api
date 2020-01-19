@@ -3,6 +3,8 @@ const Sequelize = require('sequelize');
 class TopicReply extends Sequelize.Model {}
 
 module.exports = (sequelize, dataTypes) => {
+  const User = sequelize.import('./User');
+
   TopicReply.init(
     {
       id: {
@@ -46,6 +48,8 @@ module.exports = (sequelize, dataTypes) => {
       sequelize,
     },
   );
+
+  TopicReply.hasOne(User, { as: 'user', sourceKey: 'userId', foreignKey: 'id' });
 
   return TopicReply;
 };

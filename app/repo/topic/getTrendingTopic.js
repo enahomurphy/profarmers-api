@@ -6,6 +6,8 @@ const getTrending = async (associations = []) => {
       'id',
       'creatorId',
       'forumId',
+      'title',
+      'body',
       [
         sequelize.literal(`
           (
@@ -33,7 +35,7 @@ const getTrending = async (associations = []) => {
 
   const topics = await Topic.findAll(query);
 
-  const raw = topics.map(topic => topic.get());
+  const raw = topics.map(topic => topic.get({ plain: true }));
   return raw;
 };
 

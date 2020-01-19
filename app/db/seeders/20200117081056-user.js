@@ -1,4 +1,5 @@
 const faker = require('faker');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
   up: queryInterface => {
@@ -12,11 +13,13 @@ module.exports = {
         first_name: faker.name.firstName(),
         last_name: faker.name.firstName(),
         bio: faker.name.jobDescriptor(),
-        email: faker.internet.email(),
+        email: faker.internet.email().toLowerCase(),
         phone: faker.name.prefix(),
-        password: 'test1234',
+        password: bcrypt.hashSync('test1234'),
         occupation: faker.name.prefix(),
-        profile_image: faker.image.imageUrl(100, 100),
+        profile_image: `https://randomuser.me/api/portraits/${
+          faker.random.arrayElement(['men', 'women'])
+        }/${faker.random.number({ min: 1, max: 50 })}.jpg`,
         created_at: new Date(),
         updated_at: new Date(),
         city: 'yaba',

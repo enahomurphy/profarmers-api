@@ -35,3 +35,28 @@
 * Clone the repo
 * Add a feature and raise a PR to  the base branch
 * PR is reviewed and merged
+
+
+
+Since Last stand-ups
+
+- Analyse and fix staging slow down
+- Fix issue with slack alert crashing on v1
+- Started working on validating resource creation & updating validation
+
+Before Last stand-ups
+
+- Continue working on validating resource creation & updating validation
+
+blocker
+
+- None
+
+Learnings
+
+- None
+
+get all topics
+ include replies
+ sort by replies length
+ limit 20

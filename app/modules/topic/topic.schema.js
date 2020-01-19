@@ -10,7 +10,9 @@ const Topic = `
     body: String
     user: User
     replyCount: Int
+    lastUpdatedAt: DateTime
     replies: [TopicReply]
+    users: [User]
   }
 
   type TopicReply {

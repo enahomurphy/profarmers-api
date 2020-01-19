@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const bcrypt = require('bcryptjs');
-const { get, pick } = require('lodash');
+const { get, pick, toLower } = require('lodash');
 
 class User extends Sequelize.Model {
   validPassword(password) {
@@ -43,11 +43,26 @@ module.exports = (sequelize, dataTypes) => {
         allowNull: true,
         type: dataTypes.STRING,
         field: 'first_name',
+        set(val) {
+          this.setDataValue('firstName', toLower(val));
+        },
       },
       lastName: {
         allowNull: true,
         type: dataTypes.STRING,
         field: 'last_name',
+        set(val) {
+          this.setDataValue('lastName', toLower(val));
+        },
+      },
+      fullName: {
+        type: dataTypes.VIRTUAL,
+        defaultValue: '',
+        get() {
+          const firstName = this.get('firstName');
+          const lastName = this.get('lastName');
+          return `${firstName} ${lastName}`;
+        },
       },
       bio: {
         allowNull: true,
@@ -59,6 +74,9 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.STRING,
         validate: {
           min: 3,
+        },
+        set(val) {
+          this.setDataValue('email', toLower(val));
         },
       },
       phone: {

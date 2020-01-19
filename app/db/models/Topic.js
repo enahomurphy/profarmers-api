@@ -34,6 +34,10 @@ module.exports = (sequelize, dataTypes) => {
         allowNull: false,
         field: 'forum_id',
       },
+      updatedAt: {
+        type: dataTypes.DATE,
+        field: 'updated_at',
+      },
     },
     {
       timestamps: true,
