@@ -5,21 +5,17 @@ class UserConnection extends Sequelize.Model {}
 module.exports = (sequelize, dataTypes) => {
   UserConnection.init(
     {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: dataTypes.INTEGER,
-        autoIncrement: true,
-      },
       senderId: {
         type: dataTypes.INTEGER,
         allowNull: false,
         field: 'sender_id',
+        primaryKey: true,
       },
       receiverId: {
         type: dataTypes.INTEGER,
         allowNull: false,
         field: 'receiver_id',
+        primaryKey: true,
       },
       accepted: {
         type: dataTypes.BOOLEAN,

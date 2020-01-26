@@ -6,10 +6,19 @@ const User = `
       limit: Int
       page: Int
     ): SuggestedConnectionsResult
+    userConnections(
+      limit: Int
+      page: Int
+    ): UserConnectionsResult
   }
 
   extend type Mutation {
     updateUser(payload: UserUpdateInput): User
+  }
+
+  type UserConnectionsResult {
+    connections: [User]
+    pageInfo: PageInfo
   }
 
   type SuggestedConnectionsResult {
