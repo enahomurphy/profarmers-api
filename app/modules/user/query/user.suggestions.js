@@ -15,5 +15,6 @@ const resolve = async (_, args, { repo, user }) => {
 };
 
 module.exports = {
+  auth: true,
   resolve,
 };

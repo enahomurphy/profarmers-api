@@ -1,2 +1,2 @@
 module.exports.HasAccess = require('./hasAccess');
-module.exports.Auth = require('./auth');
+module.exports.isLoggedIn = require('./isLoggedIn');

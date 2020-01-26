@@ -49,7 +49,7 @@ const errorFormater = error => {
 };
 
 const defaultErrorHandler = async (err, request, reply) => {
-  reply.code(400);
+  reply.code(reply.customStatus || 400);
   if (err.errors) {
     const errors = err.errors.map(
       error => {

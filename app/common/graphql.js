@@ -6,6 +6,10 @@ const { join } = require('path');
 const { readdir } = require('fs');
 const { promisify } = require('util');
 const { DateTimeResolver } = require('graphql-scalars');
+const { applyMiddleware } = require('graphql-middleware');
+
+const MutationMiddleWare = require('../middleware/mutation');
+const QueryMiddleWare = require('../middleware/query');
 
 const readdirPromise = promisify(readdir);
 
@@ -55,11 +59,19 @@ const LoadSchema = async (options = {}) => {
   }, { typeDefs: [Query], resolvers: [] });
 
 
-  return makeExecutableSchema({
+  const schema = makeExecutableSchema({
     typeDefs: gqlSchema.typeDefs,
     resolvers: merge(Resolver, ...gqlSchema.resolvers, { DateTime: DateTimeResolver }),
     ...options,
   });
+
+  return applyMiddleware(
+    schema,
+    {
+      Mutation: MutationMiddleWare,
+      Query: QueryMiddleWare,
+    },
+  );
 };
 
 module.exports = {
