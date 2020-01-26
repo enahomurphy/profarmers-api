@@ -5,11 +5,11 @@ module.exports = {
       id: {
         primaryKey: true,
         allowNull: false,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
       },
       sender_id: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'users',
@@ -17,7 +17,7 @@ module.exports = {
         },
       },
       receiver_id: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'users',

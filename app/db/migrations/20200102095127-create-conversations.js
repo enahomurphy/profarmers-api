@@ -3,13 +3,13 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('conversations', {
       id: {
-        primaryKey: true,
         allowNull: false,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
       },
       creator_id: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'users',
@@ -17,7 +17,7 @@ module.exports = {
         },
       },
       receiver_id: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'users',

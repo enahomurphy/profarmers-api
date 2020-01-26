@@ -8,7 +8,6 @@ module.exports = {
 
     for (let index = 0; index < amount; index += 1) {
       users.push({
-        id: faker.random.uuid(),
         salutation: faker.name.prefix(),
         first_name: faker.name.firstName(),
         last_name: faker.name.firstName(),

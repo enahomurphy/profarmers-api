@@ -18,7 +18,6 @@ module.exports = {
     while (amount < mergedUsers.length) {
       const connection = mergedUsers[amount];
       userConnections.push({
-        id: faker.random.uuid(),
         ...connection,
         accepted: faker.random.arrayElement([true, false]),
         created_at: new Date(),

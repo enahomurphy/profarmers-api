@@ -13,8 +13,8 @@ module.exports = (sequelize, dataTypes) => {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: dataTypes.UUID,
-        defaultValue: dataTypes.UUIDV4,
+        type: dataTypes.INTEGER,
+        autoIncrement: true,
       },
       title: {
         type: dataTypes.STRING,
@@ -25,14 +25,18 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.STRING,
       },
       creatorId: {
-        type: dataTypes.UUID,
+        type: dataTypes.INTEGER,
         allowNull: false,
         field: 'creator_id',
       },
       forumId: {
-        type: dataTypes.UUID,
+        type: dataTypes.INTEGER,
         allowNull: false,
         field: 'forum_id',
+      },
+      createdAt: {
+        type: dataTypes.DATE,
+        field: 'created_at',
       },
       updatedAt: {
         type: dataTypes.DATE,

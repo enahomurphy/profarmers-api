@@ -8,16 +8,16 @@ module.exports = (sequelize, dataTypes) => {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: dataTypes.UUID,
-        defaultValue: dataTypes.UUIDV4,
+        type: dataTypes.INTEGER,
+        autoIncrement: true,
       },
       senderId: {
-        type: dataTypes.UUID,
+        type: dataTypes.INTEGER,
         allowNull: false,
         field: 'sender_id',
       },
       receiverId: {
-        type: dataTypes.UUID,
+        type: dataTypes.INTEGER,
         allowNull: false,
         field: 'receiver_id',
       },

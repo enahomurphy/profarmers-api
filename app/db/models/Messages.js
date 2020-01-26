@@ -8,11 +8,11 @@ module.exports = (sequelize, dataTypes) => {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: dataTypes.UUID,
-        defaultValue: dataTypes.UUIDV4,
+        type: dataTypes.INTEGER,
+        autoIncrement: true,
       },
       conversationId: {
-        type: dataTypes.UUID,
+        type: dataTypes.INTEGER,
         field: 'conversation_id',
         allowNull: false,
         validate: {
@@ -20,7 +20,7 @@ module.exports = (sequelize, dataTypes) => {
         },
       },
       senderId: {
-        type: dataTypes.UUID,
+        type: dataTypes.INTEGER,
         allowNull: false,
         field: 'sender_id',
         validate: {

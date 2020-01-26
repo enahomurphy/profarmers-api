@@ -23,7 +23,6 @@ module.exports = {
         ]);
 
         messages.push({
-          id: faker.random.uuid(),
           conversation_id: conversation.id,
           sender_id: sender,
           message_type: faker.random.arrayElement(['text', 'image', 'video', 'audio']),

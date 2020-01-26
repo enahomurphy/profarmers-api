@@ -12,7 +12,6 @@ module.exports = {
 
     while (amount) {
       topics.push({
-        id: faker.random.uuid(),
         title: faker.lorem.words(),
         body: faker.lorem.paragraphs(),
         creator_id: faker.random.arrayElement(userIds),

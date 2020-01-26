@@ -24,7 +24,6 @@ module.exports = {
     while (amount < connections.length) {
       const connection = randomizeConversation[amount];
       conversations.push({
-        id: faker.random.uuid(),
         ...connection,
         created_at: new Date(),
         updated_at: new Date(),

@@ -16,7 +16,6 @@ module.exports = {
 
       for (let index = 0; index < count; index += 1) {
         topicReplies.push({
-          id: faker.random.uuid(),
           text: faker.lorem.paragraphs(),
           user_id: faker.random.arrayElement(userIds),
           topic_id: topicId,

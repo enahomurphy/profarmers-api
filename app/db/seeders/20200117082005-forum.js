@@ -10,7 +10,6 @@ module.exports = {
 
     while (amount) {
       forums.push({
-        id: faker.random.uuid(),
         title: `${faker.lorem.words()} ${amount}`,
         description: faker.lorem.sentence(),
         creator_id: faker.random.arrayElement(userIds),

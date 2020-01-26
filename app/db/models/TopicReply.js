@@ -10,8 +10,8 @@ module.exports = (sequelize, dataTypes) => {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: dataTypes.UUID,
-        defaultValue: dataTypes.UUIDV4,
+        type: dataTypes.INTEGER,
+        autoIncrement: true,
       },
       text: {
         type: dataTypes.TEXT,
@@ -19,16 +19,16 @@ module.exports = (sequelize, dataTypes) => {
         allowNull: false,
       },
       parentId: {
-        type: dataTypes.UUID,
+        type: dataTypes.INTEGER,
         field: 'user_id',
       },
       userId: {
-        type: dataTypes.UUID,
+        type: dataTypes.INTEGER,
         allowNull: false,
         field: 'user_id',
       },
       topicId: {
-        type: dataTypes.UUID,
+        type: dataTypes.INTEGER,
         allowNull: false,
         field: 'topic_id',
       },

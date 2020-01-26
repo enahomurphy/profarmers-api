@@ -4,21 +4,21 @@ module.exports = {
     id: {
       primaryKey: true,
       allowNull: false,
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
     },
     text: {
       type: Sequelize.TEXT,
     },
     parent_id: {
-      type: Sequelize.UUID,
+      type: Sequelize.INTEGER,
       references: {
         model: 'topic_replies',
         key: 'id',
       },
     },
     user_id: {
-      type: Sequelize.UUID,
+      type: Sequelize.INTEGER,
       allowNull: false,
       references: {
         model: 'users',
@@ -26,7 +26,7 @@ module.exports = {
       },
     },
     topic_id: {
-      type: Sequelize.UUID,
+      type: Sequelize.INTEGER,
       allowNull: false,
       references: {
         model: 'topics',
