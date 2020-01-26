@@ -31,6 +31,18 @@ services:
       - "5432:5432"
     networks:
       - profarmers_network
+
+  postgres-test:
+    container_name: profarmers-db-test
+    image: postgres:12.1-alpine
+    environment:
+      POSTGRES_PASSWORD: profarmers-test
+      POSTGRES_USER: root
+      POSTGRES_DB: profarmers-test
+    ports:
+      - "5433:5432"
+    networks:
+      - profarmers_network
 networks:
   profarmers_network:
     driver: bridge

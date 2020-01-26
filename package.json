@@ -4,14 +4,17 @@
   "description": "api for wishbox",
   "main": "server.js",
   "scripts": {
-    "test": "node_modules/.bin/_mocha test/**/*.js",
+    "test": "yarn migrate:undo:test && yarn migrate:test && yarn test:server",
+    "jest": "NODE_ENV=test DATABASE_URL=postgresql://root:profarmers@localhost/profarmers jest",
     "start": "node server.js",
     "dev": "nodemon server.js",
     "lint": "eslint \"**/*.js\"",
-    "migrate": "node_modules/.bin/sequelize db:migrate --url 'postgresql://root:profarmers@postgres/profarmers'",
-    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all --url 'postgresql://root:profarmers@postgres/profarmers'",
-    "seed:undo": "node_modules/.bin/sequelize db:seed:undo:all --url 'postgresql://root:profarmers@postgres/profarmers'",
-    "seed": "node_modules/.bin/sequelize db:seed:all --url 'postgresql://root:profarmers@postgres/profarmers'"
+    "migrate:test": "sequelize db:migrate --url 'postgresql://root:profarmers@postgres-test/profarmers'",
+    "migrate:undo:test": "sequelize db:migrate:undo:all --url 'postgresql://root:profarmers@postgres-test/profarmers'",
+    "migrate": "sequelize db:migrate --url 'postgresql://root:profarmers@postgres/profarmers'",
+    "migrate:undo": "sequelize db:migrate:undo:all --url 'postgresql://root:profarmers@postgres/profarmers'",
+    "seed:undo": "sequelize db:seed:undo:all --url 'postgresql://root:profarmers@postgres/profarmers'",
+    "seed": "sequelize db:seed:all --url 'postgresql://root:profarmers@postgres/profarmers'"
   },
   "repository": {
     "type": "git",
@@ -37,6 +40,7 @@
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.7.0",
+    "jest": "^25.1.0",
     "mocha": "^6.2.1",
     "sequelize-cli": "^5.5.1",
     "sinon": "^7.5.0"
@@ -55,6 +59,7 @@
     "graphql-tools": "^4.0.6",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "nodemon": "^1.11.0",
     "pg": "^7.17.0",
     "pg-hstore": "^2.3.3",
