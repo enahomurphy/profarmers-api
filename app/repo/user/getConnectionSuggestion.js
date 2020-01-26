@@ -2,7 +2,37 @@ const { QueryTypes } = require('sequelize');
 
 const { User, sequelize } = require('../../db/models');
 
-const getSuggestions = async (userId, { limit, offset }) => {
+const getCount = async userId => sequelize.query(
+  `
+    SELECT
+      COUNT(*) AS count
+    FROM
+          users
+    WHERE  (
+      SELECT
+          COUNT(*)
+      FROM
+          user_connections
+      WHERE
+          user_connections.sender_id = :userId AND user_connections.receiver_id = id
+      OR
+        user_connections.sender_id = id AND user_connections.receiver_id = :userId
+    ) < 1 AND id != :userId
+  `,
+  {
+    replacements: {
+      userId,
+    },
+    type: QueryTypes.SELECT,
+  },
+);
+
+const getSuggestions = async (userId, { limit, offset }, countOnly) => {
+  const count = await getCount(userId);
+  if (countOnly) {
+    return [[], count];
+  }
+
   const result = await sequelize.query(
     `
       SELECT
@@ -37,7 +67,6 @@ const getSuggestions = async (userId, { limit, offset }) => {
   );
 
   const users = result.map(u => u.toJSON());
-  const count = parseInt(result.length ? result[0]._previousDataValues.count : 0, 10);
 
   return [users, count];
 };

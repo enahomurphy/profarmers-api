@@ -3,7 +3,7 @@ const { pageInfo, parsePagination } = require('../../../lib');
 const resolve = async (_, args, { repo, user }) => {
   const [limit, offset, page] = parsePagination(args);
   const [connections, count] = await repo.User.getConnections(
-    user.id,
+    args.userId || user.id,
     { limit, offset },
   );
 

@@ -58,7 +58,6 @@ const getRecent = async (limit = 20, offset = 0) => {
     query.limit = limit;
   }
 
-
   const { rows, count } = await Topic.findAndCountAll(query);
   const topics = rows.map(topic => topic.get({ plain: true }));
   return { topics, count };

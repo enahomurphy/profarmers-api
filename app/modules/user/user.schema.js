@@ -10,10 +10,17 @@ const User = `
       limit: Int
       page: Int
     ): UserConnectionsResult
+    userInfo(id: Int): UserInfoResult
   }
 
   extend type Mutation {
     updateUser(payload: UserUpdateInput): User
+  }
+
+  type UserInfoResult {
+    connectionCount: Int
+    disscussionCount: Int
+    topicsCount: Int
   }
 
   type UserConnectionsResult {
