@@ -19,6 +19,14 @@ const Query = `
   type Mutation {
     _empty(id: String): String,
   }
+
+  type PageInfo {
+    page: Int
+    totalCount: Int
+    currentPage: Int
+    hasNext: Boolean
+    count: Int
+  }
 `;
 
 const Resolver = {

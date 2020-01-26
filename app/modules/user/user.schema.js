@@ -2,10 +2,19 @@ const User = `
   extend type Query {
     user(id: String!): User
     me: User
+    suggestedConnections(
+      limit: Int
+      page: Int
+    ): SuggestedConnectionsResult
   }
 
   extend type Mutation {
     updateUser(payload: UserUpdateInput): User
+  }
+
+  type SuggestedConnectionsResult {
+    suggestions: [User]
+    pageInfo: PageInfo
   }
 
   input UserUpdateInput {

@@ -13,7 +13,7 @@ class User extends Sequelize.Model {
 
   toJSON(include = []) {
     return {
-      id: this.getDataValue('id').replace(/-/gmi, ''),
+      id: this.id,
       fullName: `${this.firstName || ''} ${this.lastName || ''}`.trim(),
       email: this.email,
       verified: this.verified,

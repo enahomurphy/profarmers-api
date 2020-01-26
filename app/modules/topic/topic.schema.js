@@ -26,14 +26,6 @@ const Topic = `
     user: User
     updatedAt: DateTime
   }
-
-  type PageInfo {
-    page: Int
-    totalCount: Int
-    currentPage: Int
-    hasNext: Boolean
-    count: Int
-  }
 `;
 
 module.exports = [Topic];

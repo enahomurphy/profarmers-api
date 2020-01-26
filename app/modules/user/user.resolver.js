@@ -1,9 +1,7 @@
 const Mutation = require('./mutation');
+const Query = require('./query');
 
 module.exports = {
   Mutation,
-  Query: {
-    user: (root, { id }, { repo }) => repo.User.getById(id),
-    me: (root, _, { user }) => user,
-  },
+  Query,
 };

@@ -2,12 +2,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('user_connections', {
-      id: {
-        primaryKey: true,
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-      },
       sender_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -38,7 +32,16 @@ module.exports = {
       },
     });
 
-    return queryInterface.addConstraint('user_connections', ['sender_id', 'receiver_id'], {
+    await queryInterface.addConstraint(
+      'user_connections',
+      ['sender_id', 'receiver_id'],
+      {
+        type: 'primary key',
+        name: 'user_connections_sender_reciever',
+      },
+    );
+
+    return queryInterface.addConstraint('user_connections', ['receiver_id', 'sender_id'], {
       type: 'unique',
       name: 'user_connections_creator_reciever',
     });
