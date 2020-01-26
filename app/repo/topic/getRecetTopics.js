@@ -1,17 +1,36 @@
 const { Topic, sequelize } = require('../../db/models');
 
-const getRecent = async () => {
+const getRecent = async (limit = 20, offset = 0) => {
   const query = {
     attributes: [
       'id',
       'creatorId',
       'forumId',
       'title',
+      'createdAt',
+      'updatedAt',
       [
         sequelize.literal(
           '(SELECT COUNT(*) FROM topic_replies WHERE topic_replies.topic_id = "Topic"."id")',
         ),
         'replyCount',
+      ],
+      [
+        sequelize.literal(
+          `(
+            SELECT
+              updated_at
+            FROM
+              topic_replies
+            WHERE
+              topic_replies.topic_id = "Topic"."id"
+            ORDER BY
+              id DESC
+            LIMIT
+              1
+          )`,
+        ),
+        'lastReply',
       ],
     ],
     include: [
@@ -22,17 +41,27 @@ const getRecent = async () => {
       },
       {
         association: 'user',
+        required: true,
       },
     ],
     order: [
-      [Topic.associations.replies, 'updated_at', 'DESC'],
+      [sequelize.literal('"lastReply"'), 'DESC'],
     ],
+    distinct: true,
   };
 
-  const topics = await Topic.findAll(query);
+  if (offset) {
+    query.offset = offset;
+  }
 
-  const raw = topics.map(topic => topic.get({ plain: true }));
-  return raw;
+  if (limit) {
+    query.limit = limit;
+  }
+
+
+  const { rows, count } = await Topic.findAndCountAll(query);
+  const topics = rows.map(topic => topic.get({ plain: true }));
+  return { topics, count };
 };
 
 module.exports = getRecent;

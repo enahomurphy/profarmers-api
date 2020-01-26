@@ -1,7 +1,12 @@
 const get = require('lodash/get');
+const { pageInfo } = require('../../../lib');
 
-const resolve = async (_, args, { repo }) => {
-  const topics = (await repo.Topic.getRecent()).map(topic => {
+const resolve = async (_, { limit, page = 1 }, { repo }) => {
+  const pageLimit = limit || 20;
+  const offset = pageLimit * (page - 1);
+  const { topics, count } = (await repo.Topic.getRecent(pageLimit, offset));
+
+  const formartedTopics = topics.map(topic => {
     const replies = get(topic, 'replies', []);
     if (replies.length) {
       const lastUpdatedAt = replies[0].updatedAt;
@@ -25,8 +30,10 @@ const resolve = async (_, args, { repo }) => {
     };
   });
 
-
-  return topics;
+  return {
+    topics: formartedTopics,
+    pageInfo: pageInfo(count, page, pageLimit),
+  };
 };
 
 module.exports = resolve;

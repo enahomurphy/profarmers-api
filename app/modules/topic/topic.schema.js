@@ -1,7 +1,12 @@
 const Topic = `
   extend type Query {
     trendingTopics: [Topic]
-    recentTopics: [Topic]
+    recentTopics: RecentTopics
+  }
+
+  type RecentTopics {
+    topics: [Topic]
+    pageInfo: PageInfo
   }
 
   type Topic {
@@ -20,6 +25,14 @@ const Topic = `
     text: String
     user: User
     updatedAt: DateTime
+  }
+
+  type PageInfo {
+    page: Int
+    totalCount: Int
+    currentPage: Int
+    hasNext: Boolean
+    count: Int
   }
 `;
 
