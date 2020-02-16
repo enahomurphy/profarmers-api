@@ -40,6 +40,7 @@ const User = `
     bio: String
     occupation: String
     personal: String
+    profileImage: String
   }
 
   type User {

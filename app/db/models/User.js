@@ -85,7 +85,7 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.STRING,
       },
       password: {
-        allowNull: false,
+        allowNull: true,
         type: dataTypes.STRING,
         validate: {
           min: 3,
@@ -123,6 +123,11 @@ module.exports = (sequelize, dataTypes) => {
         allowNull: true,
         type: dataTypes.STRING,
         field: 'profile_image',
+      },
+      isFacebook: {
+        type: dataTypes.STRING,
+        field: 'is_facebook',
+        default: false,
       },
     },
     {

@@ -73,6 +73,21 @@ module.exports = {
       allowNull: true,
       type: Sequelize.DATE,
     },
+    is_google: {
+      allowNull: true,
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
+    is_facebook: {
+      allowNull: true,
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
+    is_linkedin: {
+      allowNull: true,
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
   }),
   down: queryInterface => queryInterface.dropTable('users'),
 };

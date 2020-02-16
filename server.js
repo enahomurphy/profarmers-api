@@ -1,10 +1,8 @@
 const winston = require('winston');
 const fastly = require('fastify');
-const yup = require('yup');
 
 const GQL = require('fastify-gql');
 const { applyMiddleware } = require('graphql-middleware');
-const { GraphQLError } = require('graphql');
 const { LoadSchema } = require('./app/common/graphql');
 const { defaultErrorHandler } = require('./app/common/error');
 
@@ -22,30 +20,11 @@ app.use(require('cors')());
 
 const port = process.env.PORT || 4000;
 
-const middleware = {
-  async Mutation(resolve, root, args, context, info) {
-    const mutationField = info.schema.getMutationType().getFields()[info.fieldName];
-    const mutationValidationSchema = mutationField.validationSchema;
-    if (mutationValidationSchema) {
-      try {
-        await mutationValidationSchema.validate(args, { abortEarly: false });
-      } catch (error) {
-        if (error instanceof yup.ValidationError) {
-          throw new GraphQLError(error);
-        }
-      }
-    }
-
-    return resolve(root, args, context, info);
-  },
-};
-
 LoadSchema()
   .then(schema => {
     const gql = {
       schema: applyMiddleware(
         schema,
-        middleware,
       ),
       graphiql: 'playground',
 
