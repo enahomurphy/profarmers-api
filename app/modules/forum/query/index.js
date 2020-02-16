@@ -1,1 +1,2 @@
-module.exports.getAllForums = require('./forums.all');
+module.exports.getAllForums = require('./forum.all');
+module.exports.forum = require('./forum.get');
