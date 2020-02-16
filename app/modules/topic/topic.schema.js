@@ -1,7 +1,7 @@
 const Topic = `
   extend type Query {
     trendingTopics: [Topic]
-    recentTopics: RecentTopics
+    recentTopics(forumId: Int, page: Int): RecentTopics
   }
 
   type RecentTopics {

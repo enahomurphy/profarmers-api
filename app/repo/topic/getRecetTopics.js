@@ -1,7 +1,8 @@
 const { Topic, sequelize } = require('../../db/models');
 
-const getRecent = async (limit = 20, offset = 0) => {
+const getRecent = async (filter = {}, limit = 20, offset = 0) => {
   const query = {
+    where: filter,
     attributes: [
       'id',
       'creatorId',
