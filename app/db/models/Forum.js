@@ -1,10 +1,5 @@
-const Sequelize = require('sequelize');
-
-class Forum extends Sequelize.Model {
-}
-
 module.exports = (sequelize, dataTypes) => {
-  Forum.init(
+  const Forum = sequelize.define('Forum',
     {
       id: {
         allowNull: false,
@@ -42,8 +37,11 @@ module.exports = (sequelize, dataTypes) => {
       deletedAt: 'deleeted_at',
       tableName: 'forums',
       sequelize,
-    },
-  );
+    });
+
+  Forum.associate = models => {
+    Forum.hasMany(models.Topic, { as: 'topics', foreignKey: 'forumId' });
+  };
 
   return Forum;
 };
