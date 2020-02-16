@@ -1,6 +1,6 @@
 const User = `
   extend type Query {
-    getAllForums: AllForums
+    getAllForums(page: Int): AllForums
   }
 
   type Forum {

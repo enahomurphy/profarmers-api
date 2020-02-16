@@ -24,7 +24,6 @@ const getAllForums = async (filter = {}, limit = 20, offset = 0) => {
     include: [
       {
         association: 'topics',
-        required: true,
         include: ['user'],
       },
     ],
