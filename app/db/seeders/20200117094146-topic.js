@@ -3,7 +3,7 @@ const faker = require('faker');
 module.exports = {
   up: async queryInterface => {
     const topics = [];
-    let amount = 50;
+    let amount = 1000;
 
     const [users] = await queryInterface.sequelize.query('SELECT id from users');
     const [forums] = await queryInterface.sequelize.query('SELECT id from forums');

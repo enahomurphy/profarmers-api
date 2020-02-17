@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 module.exports = {
   up: queryInterface => {
     const users = [];
-    const amount = 50;
+    const amount = 100;
 
     for (let index = 0; index < amount; index += 1) {
       users.push({
