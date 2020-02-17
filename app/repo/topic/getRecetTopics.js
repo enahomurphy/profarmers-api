@@ -37,7 +37,6 @@ const getRecent = async (filter = {}, limit = 20, offset = 0) => {
     include: [
       {
         association: 'replies',
-        required: true,
         include: ['user'],
       },
       {
