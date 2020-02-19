@@ -45,7 +45,7 @@ module.exports = {
 
     await queryInterface.addConstraint('topics', ['id', 'created_at'], {
       type: 'unique',
-      name: 'tppics_id_created_at',
+      name: 'topics_id_created_at',
     });
 
     await queryInterface.addConstraint(

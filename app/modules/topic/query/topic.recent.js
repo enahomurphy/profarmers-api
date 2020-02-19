@@ -1,7 +1,9 @@
 const get = require('lodash/get');
 const { pageInfo } = require('../../../lib');
 
-const resolve = async (_, { limit, page = 1, forumId }, { repo }) => {
+const resolve = async (_, {
+  limit, page = 1, forumId, sort = 'LATEST_REPLY',
+}, { repo }) => {
   const pageLimit = limit || 20;
   const offset = pageLimit * (page - 1);
   const filter = {};
@@ -10,7 +12,7 @@ const resolve = async (_, { limit, page = 1, forumId }, { repo }) => {
     filter.forumId = forumId;
   }
 
-  const { topics, count } = (await repo.Topic.getRecent(filter, pageLimit, offset));
+  const { topics, count } = (await repo.Topic.getRecent(filter, pageLimit, offset, sort));
 
   const formartedTopics = topics.map(topic => {
     const replies = get(topic, 'replies', []);

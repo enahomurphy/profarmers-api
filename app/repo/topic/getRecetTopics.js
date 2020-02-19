@@ -1,6 +1,6 @@
 const { Topic, sequelize } = require('../../db/models');
 
-const getRecent = async (filter = {}, limit = 20, offset = 0) => {
+const getRecent = async (filter = {}, limit = 20, offset = 0, sort = 'LATEST_REPLY') => {
   const query = {
     where: filter,
     attributes: [
@@ -44,11 +44,25 @@ const getRecent = async (filter = {}, limit = 20, offset = 0) => {
         required: true,
       },
     ],
-    order: [
-      [sequelize.literal('"lastReply"'), 'DESC'],
-    ],
     distinct: true,
   };
+
+  switch (sort) {
+  case 'LATEST_REPLY':
+    query.order = [
+      [sequelize.literal('"lastReply"'), 'DESC'],
+    ];
+    break;
+  case 'LATEST':
+    query.order = [
+      [sequelize.literal('"created_at"'), 'DESC'],
+    ];
+    break;
+  default:
+    query.order = [
+      [sequelize.literal('"created_at"'), 'DESC'],
+    ];
+  }
 
   if (offset) {
     query.offset = offset;

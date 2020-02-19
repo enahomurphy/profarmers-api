@@ -1,6 +1,6 @@
 const User = `
   extend type Query {
-    getAllForums(page: Int): AllForums
+    forums(page: Int): Forums
     forum(id: Int): Forum
   }
 
@@ -13,7 +13,7 @@ const User = `
     users: [User]
   }
 
-  type AllForums {
+  type Forums {
     forums: [Forum]
     pageInfo: PageInfo
   }
