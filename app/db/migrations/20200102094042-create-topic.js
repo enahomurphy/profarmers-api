@@ -43,10 +43,28 @@ module.exports = {
       },
     });
 
-    return queryInterface.addConstraint('topics', ['id', 'created_at'], {
+    await queryInterface.addConstraint('topics', ['id', 'created_at'], {
       type: 'unique',
       name: 'tppics_id_created_at',
     });
+
+    await queryInterface.addConstraint(
+      'topics',
+      ['user_id'],
+      {
+        type: 'index',
+        name: 'topic_user_id_idx',
+      },
+    );
+
+    await queryInterface.addConstraint(
+      'topics',
+      ['forum_id'],
+      {
+        type: 'index',
+        name: 'topic_forum_id_idx',
+      },
+    );
   },
   down: queryInterface => queryInterface.dropTable('topics'),
 };
