@@ -2,10 +2,17 @@ const Topic = `
   extend type Query {
     trendingTopics: [Topic]
     recentTopics(forumId: Int, page: Int): RecentTopics
+    topic(id: ID!): Topic
+    replies(topicId: ID, page: Int): Replies
   }
 
   type RecentTopics {
     topics: [Topic]
+    pageInfo: PageInfo
+  }
+
+  type Replies {
+    replies: [TopicReply]
     pageInfo: PageInfo
   }
 
@@ -14,6 +21,7 @@ const Topic = `
     title: String
     body: String
     user: User
+    forum: Forum
     replyCount: Int
     lastUpdatedAt: DateTime
     replies: [TopicReply]

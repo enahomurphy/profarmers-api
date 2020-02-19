@@ -1,3 +1,4 @@
+
 const { Topic, sequelize } = require('../../db/models');
 
 const getTrending = async (associations = []) => {

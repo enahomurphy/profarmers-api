@@ -4,6 +4,7 @@ const getTrending = require('./getTrendingTopic');
 const getRecent = require('./getRecetTopics');
 const getReplies = require('./getReplies');
 const getAll = require('./getTopics');
+const getById = require('./getTopicById');
 
 module.exports = {
   ctx: Topic,
@@ -11,4 +12,5 @@ module.exports = {
   getRecent,
   getReplies,
   getAll,
+  getById,
 };
