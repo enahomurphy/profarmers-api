@@ -48,16 +48,16 @@ module.exports = {
       name: 'topics_id_created_at',
     });
 
-    await queryInterface.addConstraint(
+    await queryInterface.addIndex(
       'topics',
-      ['user_id'],
+      ['creator_id'],
       {
         type: 'index',
-        name: 'topic_user_id_idx',
+        name: 'topic_creator_id_idx',
       },
     );
 
-    await queryInterface.addConstraint(
+    await queryInterface.addIndex(
       'topics',
       ['forum_id'],
       {
