@@ -11,6 +11,7 @@ const User = `
       page: Int
     ): UserConnectionsResult
     userInfo(id: Int): UserInfoResult
+    userConnection(userId: Int!, connectionId: Int!): Connection
   }
 
   extend type Mutation {
@@ -52,6 +53,12 @@ const User = `
     occupation: String
     personal: String
     bio: String
+  }
+
+  type Connection {
+    senderId: Int
+    receiverId: Int
+    accepted: Boolean
   }
 `;
 

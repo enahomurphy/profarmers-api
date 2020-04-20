@@ -6,6 +6,7 @@ const getById = require('./getUserById');
 const getByEmail = require('./getUserByEmail');
 const getSuggestions = require('./getConnectionSuggestion');
 const getConnections = require('./getUserConnections');
+const getConnection = require('./getUserConnection');
 
 module.exports = {
   ctx: User,
@@ -15,4 +16,5 @@ module.exports = {
   getByEmail,
   getSuggestions,
   getConnections,
+  getConnection,
 };
