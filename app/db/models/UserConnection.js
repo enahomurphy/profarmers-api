@@ -20,7 +20,7 @@ module.exports = (sequelize, dataTypes) => {
       accepted: {
         type: dataTypes.BOOLEAN,
         allowNull: false,
-        field: 'sender_id',
+        field: 'accepted',
       },
     },
     {

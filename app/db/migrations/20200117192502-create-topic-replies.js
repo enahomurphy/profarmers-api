@@ -44,7 +44,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.addConstraint(
+    await queryInterface.addIndex(
       'topic_replies',
       ['topic_id'],
       {
@@ -53,7 +53,7 @@ module.exports = {
       },
     );
 
-    await queryInterface.addConstraint(
+    await queryInterface.addIndex(
       'topic_replies',
       ['user_id'],
       {
